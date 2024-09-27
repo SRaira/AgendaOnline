@@ -1,7 +1,8 @@
-package br.techback2.agendaonline.models;
+package br.techback2.agendaonline.agenda.models;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,22 +11,25 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Data
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Contato implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private static final long serialVersionUID = 1L;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
 
-    @OneToMany
+    @ManyToOne(optional = true)
     @JoinColumn(name="email_id")
     private Set<Email> listemails;
 
-    @OneToMany
+    @ManyToOne(optional = true)
     @JoinColumn(name="telefone_id")
     private Set<Telefone> listtelefones;
 
